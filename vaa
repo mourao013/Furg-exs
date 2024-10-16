@@ -1,0 +1,43 @@
+# Volta as aulas
+# Funções
+"""
+def dobro(num):
+    saida = num*2
+    return(saida)
+
+def eh_par(valor):
+    if valor % 2 == 0:
+        return True
+    return False
+
+def teste():
+    print("Volta às aulas")
+    return 2
+    print("Amamos grama sendo cortada")
+
+
+numero = int(input("Digite o número: "))
+duplo = dobro(numero)
+print(duplo+1)
+
+if eh_par(numero):
+    print("PAR!")
+else:
+    print("IMPAR!")
+"""
+
+
+def tabuada(num):
+    saida = ""  # Variavel pra usar no return
+    for i in range(11):
+        mult = num * i
+        saida = saida + f"{num} X {i} = {mult}\n"
+    return saida  # Usar isso mais pfvr
+
+
+for i in range(11):
+    print(f"---Tabuada do {i}---")
+    print(tabuada(i))
+    print("-------------------------------")
+# numero = int(input("Digite o número: "))
+# print(tabuada(numero))
