@@ -24,7 +24,7 @@ if eh_par(numero):
     print("PAR!")
 else:
     print("IMPAR!")
-"""
+
 
 
 def tabuada(num):
@@ -41,3 +41,6 @@ for i in range(11):
     print("-------------------------------")
 # numero = int(input("Digite o número: "))
 # print(tabuada(numero))
+"""
+
+def primo
