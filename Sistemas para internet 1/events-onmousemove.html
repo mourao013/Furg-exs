@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script>
+            function myFunction(e){
+                x = e.clientX;
+                y = e.clientY;
+                coor="coordenadas: ("+ x + ", "+ y + ")";
+                document.getElementById("demo").innerHTML=coor
+            }
+
+            function clearCoor(){
+                document.getElementById("demo").innerHTML="";
+            }
+</script>
+    </head>
+
+    <body style="margin:0px;">
+
+        <div id="coordiv" style="width:199px;height:99px;border:1px solid" onmousemove="myFunction(event)" onmouseout="clearCoor()">
+
+        </div>
+        <p>Mova o mouse dentro do retangulo. </p>
+        <p id="demo"></p>
+    </body>
+    </html>
