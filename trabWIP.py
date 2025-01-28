@@ -10,22 +10,22 @@ class Estoque:  # Essa classe gerencia as operações de estoque, como carregar,
     def carregar_estoque(self):  # Carrega os dados do estoque a partir de um arquivo CSV e retorna um dicionário com os produtos e suas quantidades.
         estoque = {}
         try:
-            with open('self.arquivo_csv', mode='r') as arquivo:
+            with open('estoque.csv', mode='r') as arquivo:
                 leitor = csv.reader(arquivo)
                 next(leitor)
                 for linha in leitor:
-                    produto, quantidade = linha
-                    estoque[produto] = int(quantidade)
+                    Id, Nome, Valor , quantidade  = linha
+                    estoque[Id] = estoque[Nome] = estoque[float(Valor)] = int(quantidade)
         except FileNotFoundError:
             pass
         return estoque
 
     def salvar_estoque(self):  # Salva o estado atual do estoque em um arquivo CSV, garantindo persistência dos dados.
-        with open('self.estoque.csv', mode='w', newline='') as arquivo:
+        with open('self-estoque.csv', mode='w', newline='') as arquivo:
             escritor = csv.writer(arquivo)
-            escritor.writerow(["Produto", "Quantidade"])
-            for produto, quantidade in self.estoque.items():
-                escritor.writerow([produto, quantidade])
+            escritor.writerow(["Produto", "Quantidade, Valor"])
+            for produto, quantidade, valor in self.estoque.items():
+                escritor.writerow([produto, quantidade, valor])
 
     def adicionar_item(self, produto, quantidade):  # Adiciona um novo produto ou atualiza a quantidade de um produto existente no estoque.
         if produto in self.estoque:
@@ -104,13 +104,10 @@ def visualizar_estoque():  # Abre uma janela que exibe a lista de produtos e sua
     win.setBackground("white")
 
     y = 20
-    for produto, quantidade in estoque.estoque.items():
-        texto = Text(Point(150, y), f"{produto}: {quantidade}")
+    for  produto, valor in estoque.estoque.items():
+        texto = Text(Point(150, y), f"{produto}, {valor}")
         texto.draw(win)
         y += 20
-
-    win.getMouse()
-    win.close()
 
 def comprar_itens():  # Abre uma janela para permitir ao usuário reduzir a quantidade de itens no estoque ao realizar uma compra.
     win = GraphWin("Comprar Itens", 300, 300)
@@ -124,22 +121,27 @@ def comprar_itens():  # Abre uma janela para permitir ao usuário reduzir a quan
     entrada_quantidade = Entry(Point(150, 140), 20)
     entrada_quantidade.draw(win)
 
-    btn_comprar = Rectangle(Point(100, 180), Point(200, 220))
+    Text(Point(150, 170), "Preço:").draw(win)
+    entrada_preco = Entry(Point(150, 200), 20)
+    entrada_preco.draw(win)
+    
+    btn_comprar = Rectangle(Point(100, 220), Point(200, 260))
     btn_comprar.setFill("lightblue")
     btn_comprar.draw(win)
     Text(btn_comprar.getCenter(), "Comprar").draw(win)
 
-    win.getMouse()
-
-    produto = entrada_produto.getText()
-    quantidade = int(entrada_quantidade.getText())
+    while True:
+        click = win.getMouse()
+        if btn_comprar.getP1().getX() <= click.getX() <= btn_comprar.getP2().getX() and btn_comprar.getP1().getY() <= click.getY() <= btn_comprar.getP2().getY():
+            produto = entrada_produto.getText()
+            quantidade = int(entrada_quantidade.getText())
+            break
     if estoque.reduzir_item(produto, quantidade):
         Text(Point(150, 260), "Compra realizada com sucesso!").draw(win)
     else:
         Text(Point(150, 260), "Erro: Produto ou quantidade inválida.").draw(win)
-
-    win.getMouse()
-    win.close()
+    
+    
 
 def adicionar_item():  # Abre uma janela para permitir ao usuário adicionar novos itens ou atualizar a quantidade de itens existentes no estoque.
     win = GraphWin("Adicionar Item", 300, 300)
@@ -153,20 +155,26 @@ def adicionar_item():  # Abre uma janela para permitir ao usuário adicionar nov
     entrada_quantidade = Entry(Point(150, 140), 20)
     entrada_quantidade.draw(win)
 
-    btn_adicionar = Rectangle(Point(100, 180), Point(200, 220))
+    Text(Point(150, 170), "Valor:").draw(win)
+    entrada_valor = Entry(Point(150, 200), 20)
+    entrada_valor.draw(win)
+    
+    btn_adicionar = Rectangle(Point(100, 230), Point(200, 270))
     btn_adicionar.setFill("lightgreen")
     btn_adicionar.draw(win)
     Text(btn_adicionar.getCenter(), "Adicionar").draw(win)
 
-    win.getMouse()
-
+    while True:
+        click = win.getMouse()
+        if btn_adicionar.getP1().getX() <= click.getX() <= btn_adicionar.getP2().getX() and btn_adicionar.getP1().getY() <= click.getY() <= btn_adicionar.getP2().getY():
+            break
+    
     produto = entrada_produto.getText()
     quantidade = int(entrada_quantidade.getText())
     estoque.adicionar_item(produto, quantidade)
 
     Text(Point(150, 260), "Item adicionado com sucesso!").draw(win)
-
-    win.getMouse()
+    
     win.close()
 
 if __name__ == "__main__":
