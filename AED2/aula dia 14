@@ -1,0 +1,32 @@
+*pseudocodigo*
+
+algoritmo multiplica()
+
+string op1.str, op2.str
+int op1[4], op2[4], R[8], aux_mult, aux_div, R_aux[5];
+
+escreva ("informe o 1° operador");
+leia (op1.str);
+escreva("informe o 2° operador");
+leia (op2.str);
+
+para i = 1 até 4  faça
+    op1[i] = int(op1.str[i]);
+    op2[i] = int(op2.str[i]);
+
+para i = 1 até 8 faça
+    R[i] = 0;
+
+para i = 4 ate(downto) 1 faça //percorre op2
+    aux_div = 0;
+    para j = 4 até(downto) 1 faça //percorre op1
+        aux_mult = op1[j]* op2[i] + aux_div;
+       R_aux[j+1] = aux_mult mod 10;
+       aux_div = aux_mult div 10;
+    R_aux[1] = aux_div;
+    para j = 4 até[downto] 0 faça
+        aux_soma = R_aux[j+1] + R[i+j] + aux_div;
+        R[i+j] = aux_soma div 10;
+        aux_div = aux_soma mod 10;
+    fim para;
+fim para;
